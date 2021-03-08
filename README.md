@@ -5,6 +5,8 @@
 #### Описание
 CLI-утилита написанная на Руби. Использованы базовые концепции ООП, реализована поддержка SQLite3.
 
+[![asciicast](https://asciinema.org/a/gkKEB4cM31VxEPmu7P64r6iEz.svg)](https://asciinema.org/a/gkKEB4cM31VxEPmu7P64r6iEz)
+
 Поддерживаются три типа записей:
 * Мемо
 * Ссылка
