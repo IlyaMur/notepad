@@ -16,6 +16,48 @@ class Post
     post_types[type].new
   end
 
+  def self.find(limit, type, id)
+    db = SQLite3::Database.open(@@SQLITE_DB_FILE)
+
+    unless id.nil?
+      db.results_as_hash = true
+
+      result = db.execute("SELECT * FROM posts WHERE rowid = ?", id)
+      result = result[0] if result.is_a? Array
+
+      db.close
+
+      if result.empty?
+        puts "Такой id #{id} не найден в базе"
+        nil
+      else
+        post = create(result['type'])
+        post.load_data(result)
+        post
+      end
+    else
+      db.results_as_hash = false
+
+      query = 'SELECT rowid, * FROM posts '
+
+      query += 'WHERE type = :type ' unless  type.nil?
+      query += 'ORDER by rowid DESC '
+      query += 'LIMIT :limit ' unless  limit.nil?
+
+      statement = db.prepare(query)
+
+      statement.bind_param('type', type) unless type.nil?
+      statement.bind_param('limit', limit) unless limit.nil?
+
+      result = statement.execute!
+
+      statement.close
+      db.close
+
+      result
+    end
+  end
+
   def initialize
     @created_at = Time.now
     @text = []
@@ -52,6 +94,10 @@ class Post
     )
 
     db.last_insert_row_id
+  end
+
+  def load_data(data_hash)
+    @created_at = Time.parse(data_hash['created_at'])
   end
 
   def to_db_hash

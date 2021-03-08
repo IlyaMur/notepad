@@ -32,4 +32,10 @@ class Task < Post
       }
     )
   end
+
+  def load_data(data_hash)
+    super(data_hash)
+
+    @due_date = Date.parse(data_hash['due_date'])
+  end
 end

@@ -26,4 +26,10 @@ class Link < Post
       }
     )
   end
+
+  def load_data(data_hash)
+    super(data_hash)
+
+    @url = data_hash['url']
+  end
 end
