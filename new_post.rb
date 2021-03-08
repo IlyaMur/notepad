@@ -4,7 +4,7 @@ require_relative 'lib/link'
 require_relative 'lib/memo'
 
 
-post_types = Post.print_note_types
+post_types = Post.post_types.keys
 
 input = -1
 
@@ -15,7 +15,9 @@ until input.between?(1, post_types.size)
   input = gets.to_i
 end
 
-post = Post.create_post(input - 1)
+post = Post.create(post_types[input - 1])
 
 post.read_from_console
-post.save
+id = post.save_to_db
+
+puts "Запись была сохранена, id = #{id}"
