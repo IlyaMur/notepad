@@ -15,15 +15,15 @@ CLI-утилита написанная на Руби. Использованы 
 
 Установить зависимости:
 
-```$ bundle install```
+ $ bundle install
 
 Чтобы сделать заметку:
 
-```$ bundle exec ruby new_post.rb```
+ $ bundle exec ruby new_post.rb
 
 Чтобы красиво вывести заметки:
 
-```$ bundle exec ruby read.rb```
+ $ bundle exec ruby read.rb
 
 ### Опциональные ключи
 
